@@ -1,0 +1,26 @@
+{
+    "fluentMethods": true,
+    "relationships": [],
+    "fields": [
+        {
+            "fieldName": "name",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "brand",
+            "fieldType": "String"
+        },
+        {
+            "fieldName": "price",
+            "fieldType": "BigDecimal"
+        }
+    ],
+    "changelogDate": "20180518201647",
+    "dto": "mapstruct",
+    "service": "serviceImpl",
+    "entityTableName": "phone",
+    "jpaMetamodelFiltering": true,
+    "pagination": "pagination",
+    "microserviceName": "phoneservice",
+    "searchEngine": "elasticsearch"
+}
