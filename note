@@ -1,0 +1,32 @@
+package vn.ghtk.ewallet.finance.repository;
+
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
+import org.springframework.stereotype.Repository;
+import vn.ghtk.ewallet.finance.entity.AccountEntity;
+
+import java.math.BigDecimal;
+
+@Repository
+public interface AccountRepository extends CrudRepository<AccountEntity, Integer> {
+
+    @Modifying
+    @Query(value = "update account set balance = balance + :amount " +
+                   "where account_no = :accountNo and balance + :amount >= 0", nativeQuery = true)
+    int updateBalanceByAccountNo(String accountNo, BigDecimal amount);
+
+    @Modifying
+    @Query(value = "update account set hold_balance = hold_balance + :amount, balance = balance - :amount " +
+                   "where account_no = :accountNo and balance - :amount >= 0 ", nativeQuery = true)
+    int holdBalanceByAccNo(String accountNo, BigDecimal amount);
+
+    @Modifying
+    @Query(value = "update account set hold_balance = hold_balance - :amount, balance = balance + :amount " +
+                   "where account_no = :accountNo and hold_balance - :amount >= 0 ", nativeQuery = true)
+    int unHoldBalanceByAccNo(String accountNo, BigDecimal amount);
+
+    AccountEntity findByUserIdAndStatus(Integer userId, Integer status);
+
+    AccountEntity findByAccountNo(String accountNo);
+}
